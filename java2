@@ -1,0 +1,45 @@
+import java.util.Stack;
+
+public class Main {
+    public static void main(String[] args) {
+        // 1. Создание стека
+        Stack<Integer> myStack = new Stack<>();
+        
+        // 2. Добавление элементов
+        myStack.push(10);
+        myStack.push(20);
+        myStack.push(30);
+        
+        // 3. Проверка размера
+        System.out.println("Размер стека: " + myStack.size());
+        
+        // 4. Просмотр верхнего элемента
+        System.out.println("Верхний элемент: " + myStack.peek());
+        
+        // 5. Удаление элементов
+        int removedElement = myStack.pop();
+        System.out.println("Удален элемент: " + removedElement);
+        
+        System.out.println("После удаления, верхний элемент: " + myStack.peek());
+        
+        removedElement = myStack.pop();
+        System.out.println("Удален элемент: " + removedElement);
+        
+        System.out.println("После удаления, верхний элемент: " + myStack.peek());
+        
+        // 6. Проверка на пустоту
+        if (myStack.empty()) {
+            System.out.println("Стек пуст");
+        } else {
+            System.out.println("В стеке есть элементы");
+        }
+        
+        // 7. Удаляем последний элемент и проверяем снова
+        myStack.pop();
+        if (myStack.empty()) {
+            System.out.println("Теперь стек пуст");
+        } else {
+            System.out.println("В стеке все еще есть элементы");
+        }
+    }
+}
