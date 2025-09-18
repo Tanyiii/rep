@@ -1,0 +1,35 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+int main() {
+    // 1. Создание стека с именем mystack
+    stack<int> myStack;
+    
+    // 2. Добавление элементов в стек с помощью push()
+    myStack.push(10);
+    myStack.push(20);
+    myStack.push(30);
+    
+    // 3. Проверка размера стека с помощью size()
+    cout << "Размер стека: " << myStack.size() << endl;
+    
+    // 4. Просмотр верхнего элемента стека с помощью top()
+    cout << "Верхний элемент: " << myStack.top() << endl;
+    
+    // 5. Удаление элементов с помощью pop()
+    myStack.pop();
+    cout << "После удаления, верхний элемент: " << myStack.top() << endl;
+    
+    myStack.pop();
+    cout << "После удаления, верхний элемент: " << myStack.top() << endl;
+    
+    // 6. Проверка на пустоту
+    if (myStack.empty()) {
+        cout << "Стек пуст" << endl;
+    } else {
+        cout << "В стеке есть элементы" << endl;
+    }
+    
+    return 0;
+}
