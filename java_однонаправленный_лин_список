@@ -1,0 +1,37 @@
+// Создаем класс для узла списка
+class Node {
+    int data;    // Храним число
+    Node next;   // Ссылка на следующий узел
+    
+    // Конструктор для удобного создания узла
+    Node(int value) {
+        data = value;
+        next = null;
+    }
+}
+
+public class SimpleLinkedList {
+    public static void main(String[] args) {
+        // Создаем три узла
+        Node first = new Node(10);
+        Node second = new Node(20);
+        Node third = new Node(30);
+        
+        // Связываем узлы между собой
+        first.next = second;  // Первый указывает на второй
+        second.next = third;  // Второй указывает на третий
+        
+        // Выводим список
+        Node current = first; // Начинаем с первого узла
+        while (current != null) {
+            System.out.print(current.data);
+            if (current.next != null) {
+                System.out.print(" -> ");
+            }
+            current = current.next; // Переходим к следующему
+        }
+        System.out.println(" -> null");
+        
+        // Результат: 10 -> 20 -> 30 -> null
+    }
+}
