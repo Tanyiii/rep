@@ -1,0 +1,29 @@
+#include <iostream>
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+int main() {
+    // Создаем список (5 -> 3 -> 8 -> NULL)
+    Node* head = new Node{5, nullptr};
+    head->next = new Node{3, nullptr};
+    head->next->next = new Node{8, nullptr};
+
+    // Подсчитываем количество элементов
+    int count = 0;
+    Node* current = head; // Начинаем с головы списка
+
+    // Проходим по всем узлам, пока не дойдем до конца
+    while (current != nullptr) {
+        count++;                // Увеличиваем счетчик
+        current = current->next; // Переходим к следующему узлу
+    }
+
+    // Выводим результат
+    std::cout << "В списке " << count << " элемента(ов)" << std::endl;
+    // Результат: В списке 3 элемента
+
+    return 0;
+}
