@@ -1,0 +1,40 @@
+class Node {
+    int data;
+    Node next;
+    
+    Node(int value) {
+        data = value;
+        next = null;
+    }
+}
+
+public class SearchLinkedList {
+    public static void main(String[] args) {
+        // Создаем список: 15 -> 25 -> 35 -> null
+        Node head = new Node(15);
+        head.next = new Node(25);
+        head.next.next = new Node(35);
+        
+        // Число, которое будем искать
+        int target = 25;
+        boolean found = false;
+        
+        // Поиск по списку
+        Node current = head;
+        while (current != null) {
+            if (current.data == target) {
+                found = true;  // Нашли
+                break;
+            }
+            current = current.next;
+        }
+        
+        // Выводим результат поиска
+        if (found) {
+            System.out.println("Число " + target + " найдено в списке");
+        } else {
+            System.out.println("Число " + target + " не найдено в списке");
+        }
+        // Результат: Число 25 найдено в списке
+    }
+}
