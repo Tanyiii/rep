@@ -1,0 +1,39 @@
+#include <iostream>
+
+// Создаем структуру для узла списка
+struct Node {
+    int data;     // Здесь хранится число
+    Node* next;   // Указатель на следующий узел
+};
+
+int main() {
+    // Создаем три узла в памяти
+    Node* first = new Node;
+    Node* second = new Node;
+    Node* third = new Node;
+
+    // Заполняем данные в узлах
+    first->data = 10;    // В первый узел кладем число 10
+    second->data = 20;   // Во второй - число 20
+    third->data = 30;    // В третий - число 30
+
+    // Связываем узлы между собой
+    first->next = second;  // Первый узел указывает на второй
+    second->next = third;  // Второй узел указывает на третий
+    third->next = nullptr; // Третий узел ни на что не указывает (конец списка)
+
+    // Выводим список
+    Node* current = first; // Начинаем с первого узла
+    while (current != nullptr) {
+        std::cout << current->data;
+        if (current->next != nullptr) {
+            std::cout << " -> ";
+        }
+        current = current->next; // Переходим к следующему узлу
+    }
+    std::cout << "NULL" << std::endl;
+
+    // Результат: 10 -> 20 -> 30 -> NULL
+
+    return 0;
+}
