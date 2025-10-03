@@ -1,0 +1,79 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class MinHeap {
+private:
+    vector<int> heap; // Хранилище элементов кучи
+
+    // Восстановление свойств кучи снизу вверх
+    void siftUp(int index) {
+        // Пока не дошли до корня и текущий элемент меньше родителя
+        while (index > 0 && heap[index] < heap[(index - 1) / 2]) {
+            swap(heap[index], heap[(index - 1) / 2]); // Меняем с родителем
+            index = (index - 1) / 2; // Переходим к родителю
+        }
+    }
+
+    // Восстановление свойств кучи сверху вниз
+    void siftDown(int index) {
+        int smallest = index; // Предполагаем, что текущий элемент наименьший
+        int left = 2 * index + 1; // Левый потомок
+        int right = 2 * index + 2; // Правый потомок
+
+        // Если левый потомок существует и меньше текущего
+        if (left < heap.size() && heap[left] < heap[smallest])
+            smallest = left;
+
+        // Если правый потомок существует и меньше наименьшего
+        if (right < heap.size() && heap[right] < heap[smallest])
+            smallest = right;
+
+        // Если нашли меньший элемент среди потомков
+        if (smallest != index) {
+            swap(heap[index], heap[smallest]); // Меняем местами
+            siftDown(smallest); // Рекурсивно просеиваем дальше
+        }
+    }
+
+public:
+    // Добавление нового элемента
+    void insert(int value) {
+        heap.push_back(value); // Добавляем в конец
+        siftUp(heap.size() - 1); // Восстанавливаем свойства кучи
+    }
+
+    // Извлечение минимального элемента
+    int extractMin() {
+        if (heap.empty()) return -1; // Если куча пуста
+        
+        int min = heap[0]; // Запоминаем минимальный элемент (корень)
+        heap[0] = heap.back(); // Переносим последний элемент в корень
+        heap.pop_back(); // Удаляем последний элемент
+        siftDown(0); // Восстанавливаем свойства кучи от корня
+        
+        return min; // Возвращаем минимальный элемент
+    }
+
+    // Просмотр минимального элемента без извлечения
+    int getMin() {
+        return heap.empty() ? -1 : heap[0];
+    }
+};
+
+int main() {
+    MinHeap heap;
+    
+    // Добавляем элементы
+    heap.insert(10);
+    heap.insert(5);
+    heap.insert(15);
+    heap.insert(3);
+    
+    cout << "Минимальный элемент: " << heap.getMin() << endl; // 3
+    
+    cout << "Извлекаем минимум: " << heap.extractMin() << endl; // 3
+    cout << "Новый минимум: " << heap.getMin() << endl; // 5
+    
+    return 0;
+}
