@@ -1,0 +1,72 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class MinHeap {
+private:
+    vector<int> heap;
+
+    // Просеивание вниз для построения кучи
+    void heapify(int index) {
+        int smallest = index;
+        int left = 2 * index + 1;
+        int right = 2 * index + 2;
+
+        // Находим наименьший среди текущего элемента и его потомков
+        if (left < heap.size() && heap[left] < heap[smallest])
+            smallest = left;
+        if (right < heap.size() && heap[right] < heap[smallest])
+            smallest = right;
+
+        // Если нашли меньший элемент, меняем и продолжаем
+        if (smallest != index) {
+            swap(heap[index], heap[smallest]);
+            heapify(smallest); // Рекурсивно обрабатываем затронутое поддерево
+        }
+    }
+
+public:
+    // Конструктор, который строит кучу из массива
+    MinHeap(vector<int> array) {
+        heap = array;
+        // Начинаем с середины массива и идем к корню
+        for (int i = heap.size() / 2 - 1; i >= 0; i--) {
+            heapify(i); // Преобразуем каждое поддерево в кучу
+        }
+    }
+
+    // Проверка, является ли массив минимальной кучей
+    bool isMinHeap() {
+        for (int i = 0; i <= heap.size() / 2 - 1; i++) {
+            int left = 2 * i + 1;
+            int right = 2 * i + 2;
+            
+            // Проверяем, что родитель меньше левого потомка
+            if (left < heap.size() && heap[i] > heap[left])
+                return false;
+            // Проверяем, что родитель меньше правого потомка
+            if (right < heap.size() && heap[i] > heap[right])
+                return false;
+        }
+        return true;
+    }
+
+    // Вывод кучи
+    void print() {
+        for (int val : heap) cout << val << " ";
+        cout << endl;
+    }
+};
+
+int main() {
+    vector<int> arr = {4, 10, 3, 5, 1, 8, 7};
+    
+    MinHeap heap(arr); // Строим кучу из массива
+    
+    cout << "Построенная куча: ";
+    heap.print(); // Вывод: 1 4 3 5 10 8 7
+    
+    cout << "Является минимальной кучей: " << heap.isMinHeap() << endl; // 1 (true)
+    
+    return 0;
+}
