@@ -1,0 +1,85 @@
+import java.util.*;
+
+class SimpleMinHeap {
+    private List<Integer> heap = new ArrayList<>();
+
+    // Просеивание вверх после добавления
+    private void siftUp(int index) {
+        // Пока не дошли до корня и текущий элемент меньше родителя
+        while (index > 0 && heap.get(index) < heap.get((index - 1) / 2)) {
+            // Меняем текущий элемент с родителем
+            Collections.swap(heap, index, (index - 1) / 2);
+            index = (index - 1) / 2; // Переходим к индексу родителя
+        }
+    }
+
+    // Просеивание вниз после удаления
+    private void siftDown(int index) {
+        int smallest = index; // Предполагаем, что текущий элемент наименьший
+        int left = 2 * index + 1; // Индекс левого потомка
+        int right = 2 * index + 2; // Индекс правого потомка
+
+        // Сравниваем с левым потомком
+        if (left < heap.size() && heap.get(left) < heap.get(smallest))
+            smallest = left;
+
+        // Сравниваем с правым потомком
+        if (right < heap.size() && heap.get(right) < heap.get(smallest))
+            smallest = right;
+
+        // Если нашли меньший элемент среди потомков
+        if (smallest != index) {
+            Collections.swap(heap, index, smallest); // Меняем местами
+            siftDown(smallest); // Продолжаем просеивание
+        }
+    }
+
+    // Добавление элемента
+    public void add(int value) {
+        heap.add(value); // Добавляем в конец списка
+        siftUp(heap.size() - 1); // Восстанавливаем свойства кучи
+    }
+
+    // Удаление и возврат минимального элемента
+    public int remove() {
+        if (heap.isEmpty()) return -1; // Если куча пуста
+        
+        int min = heap.get(0); // Сохраняем минимальный элемент
+        heap.set(0, heap.get(heap.size() - 1)); // Переносим последний элемент в корень
+        heap.remove(heap.size() - 1); // Удаляем последний элемент
+        
+        if (!heap.isEmpty()) {
+            siftDown(0); // Восстанавливаем свойства кучи
+        }
+        
+        return min; // Возвращаем минимальный элемент
+    }
+
+    // Получение минимального элемента без удаления
+    public int peek() {
+        return heap.isEmpty() ? -1 : heap.get(0);
+    }
+
+    // Вывод содержимого кучи
+    public void display() {
+        System.out.println("Куча: " + heap);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        SimpleMinHeap heap = new SimpleMinHeap();
+        
+        // Добавляем элементы
+        heap.add(20);
+        heap.add(10);
+        heap.add(30);
+        heap.add(5);
+        
+        heap.display(); // Вывод: [5, 10, 30, 20]
+        
+        System.out.println("Минимальный: " + heap.peek()); // 5
+        System.out.println("Удаляем: " + heap.remove()); // 5
+        System.out.println("Новый минимальный: " + heap.peek()); // 10
+    }
+}
